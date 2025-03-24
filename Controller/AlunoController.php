@@ -11,7 +11,7 @@ final class AlunoController extends Controller
     {
         parent::isProtected();
 
-        $model = new Aluno();
+        $model = new Aluno();;
 
         try {
             $model->getAllRows();
