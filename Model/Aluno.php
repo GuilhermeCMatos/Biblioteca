@@ -35,3 +35,25 @@ final class Aluno extends Model
         get => $this->RA ?? null;
     }
 }
+
+function save() : Aluno
+{
+    return new AlunoDAO()->save($this);
+}
+
+function getById(int $id) : ?Aluno
+{
+    return new AlunoDAO()->selectById($id);
+}
+
+function getAllRows() : array
+{
+    $this->rows = new AlunoDAO()->select();
+
+    return $this->rows;
+}
+
+function delete(int $id) : bool
+{
+    return new AlunoDAO()->delete($id);
+}
