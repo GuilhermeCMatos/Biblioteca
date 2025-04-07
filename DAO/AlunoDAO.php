@@ -52,7 +52,40 @@ final class AlunoDAO extends DAO
     {
         $sql = "SELECT * FROM aluno WHERE id=? ";
         
+        $stmt = parent::$conexao->prepare($sql);
+        $stmt->bindValue(1, $id);
+        $stmt->execute();
+
+        return $stmt->fetchObject("App\Model\Aluno");
     }
 
-    
+    /**
+     * Método que retorna todos os registros da tabela pessoa no bando de dados
+     */
+     public function select() : array
+     {
+        $sql = "SELECT * FROM aluno";
+
+        $stmt = parent::$conexao->prepare($sql);
+        $stmt->execute();
+
+        // Retorna um array com as linhas retornadas da consulta. Observe que
+        // o array é um array objetos. Os obijetos são do tipo stdClass
+        // foram criados automaticamente pelo método fetcAll do PDO.
+        return $stmt->fetchAll(DAO::FETCH_CLASS, "App\Model\Aluno"); 
+     }
+
+     /**
+      * Remove um registro da tavela pessoa do banco de dados.
+      * Note que o método exige um parâmeto $id do tipo inteiro. 
+      */
+      public function delete(int $id) : bool
+      {
+        $sql = "DELETE FROM aluno WHERE id=? ";
+
+        $stmt = parent::$conexao->prepare($sql);
+        $bind->bindValue(1, $id);
+        return $stmt->execute();
+
+      }
 }
