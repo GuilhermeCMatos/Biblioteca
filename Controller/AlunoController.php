@@ -1,81 +1,82 @@
 <?php
+    namespace LibraryETEC\Controller;
 
-namespace App\Controller;
+    use LibraryETEC\Model\Aluno;
+    use Exception;
 
-use App\Model\Aluno;
-use Exception;
-
-final class AlunoController extends Controller
-{
-    public static function index() : void
+    final class AlunoConrtoller extends Controller
     {
-        parent::isProtected();
+        public static function index() : void
+        {
+            parent::isProtected();
 
-        $model = new Aluno();;
+            $model = new Aluno();
 
-        try {
-            $model->getAllRows();
-        
-        } catch(Exception $e) {
-            $model->setError("Ocorreu um erro ao buscar os alunos:");
-            $model->setError($e->getMessage());
+            try
+            {
+                $model->getAllRows();
+            }
+            catch(Exception $e)
+            {
+                $model->setError("Ocorreu um erro ao buscar os alunos:");
+                $model->setError($e->getMessage());
+            }
+
+            parent::render('Aluno/lista_aluno.php', $model);
         }
 
-        parent::render('Aluno\lista_aluno.php', $model);
-    }
-
-    public static function cadastro() : void
-    {
-        parent::isProtected();
-        $model = new Aluno();
-
-        try
+        public static function cadasrto() : void
         {
-            if(parent::isPost())
-            {
-                $model->id = !empty($_POST["id"]) ? $_POST["id"] : null;
-                $model->Nome = $_POST["nome"];
-                $model->RA = $_POST["ra"];
-                $model->Curso = $_POST["curso"];
-                $model-> save();
-                
-                parent::redirect("/aluno");
-            } else
-            {
-                if(isset($_GET['id'])){
+            parent::isProtected();
 
-                    $model = $model->getById( (int) $_GET["id"]);
+            $model = new Aluno();
 
+            try
+            {
+                if(parent::isPost())
+                {
+                    $model->Id = !empty($_POST['id']) ? $_POST['id'] : null;
+                    $model->Nome = $_POST['nome'];
+                    $model->RA = $_POST['ra'];
+                    $model->Curso = $_POST['curso'];
+                    $model->save();
+
+                    parent::redirect("/aluno");
+                }
+                else
+                {
+                    if(isset($_GET['id']))
+                    {
+                        $model = $model->getById( (int) $_GET['id']);
+                    }
                 }
             }
-        } catch(Exeption $e)
-        {
-            $model-> serError($e-> getMessage());
+            catch(Exception $e)
+            {
+                $model->setError($e->getMessage());
+            }
+
+            parent::render('Aluno/form_aluno.php', $model);   
         }
 
-        parent::render("Aluno/form_aluno.php", $model);
-    }
-
-    public static function delet() : void
-    {
-        parent::isProtected();
-
-        $model = new Aluno();
-
-        try 
+        public static function delete() : void
         {
-            $model-> delete((int) $_GET['id']);
-            parent::redirect("/aluno");
+            parent::isProtected();
 
+            $model = new Aluno();
 
-        } catch(Exception)
-        {
-            $model -> serError("Ocorreu um erro ao buscar os alunos:");
-            $model -> serError($e -> getMessage());
+            try
+            {
+                $model->delete( (int) $_GET['id']);
+                parent::redirect("/aluno");
+            }
+            catch (Exception $e)
+            {
+                $model->setError("Ocorreu um erro ao excluir o aluno:");
+                $model->setError($e->getMessage());
+            }
+
+            parent::render('Aluno/form_aluno.php', $model);   
         }
-
-        parent::render('Aluno/lista_aluno.php', $model);
     }
-}
-
 ?>

@@ -1,10 +1,10 @@
 <?php
-    namespace PHPappMVCi\Controller;
+    namespace LibraryETEC\Controller;
 
-    use PHPappMVCi\Model\{ Emprestimo, Aluno, Livro };
+    use LibraryETEC\Model\{ Emprestimo, Aluno, Livro };
     use Exception;
 
-    final class EmprestimoConrtoller extends Controller
+    final class EmprestimoController extends Controller
     {
         public static function index() : void
         {

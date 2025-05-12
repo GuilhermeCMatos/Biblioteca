@@ -1,5 +1,5 @@
 <?php
-    namespace PHPappMVCi\Controller;
+    namespace LibraryETEC\Controller;
 
     final class InicialController extends Controller
     {

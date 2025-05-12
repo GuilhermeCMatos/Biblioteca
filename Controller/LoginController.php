@@ -1,7 +1,7 @@
 <?php
-    namespace PHPappMVCi\Controller;
+    namespace LibraryETEC\Controller;
 
-    use PHPappMVCi\Model\Login;
+    use LibraryETEC\Model\Login;
 
     final class LoginController
     {
