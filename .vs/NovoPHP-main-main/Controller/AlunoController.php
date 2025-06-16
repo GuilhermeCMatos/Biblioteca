@@ -1,7 +1,7 @@
 <?php
-    namespace NovoPHPmain\Controller;
+    namespace LibraryETEC\Controller;
 
-    use NovoPHPmain\Model\Aluno;
+    use LibraryETEC\Model\Aluno;
     use Exception;
 
     final class AlunoConrtoller extends Controller

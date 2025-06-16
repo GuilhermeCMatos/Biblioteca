@@ -1,7 +1,7 @@
 <?php
-    namespace LibraryETEC\Controller;
+    namespace NovoPHPmain\Controller;
 
-    use LibraryETEC\Model\{ Emprestimo, Aluno, Livro };
+    use NovoPHPmain\Model\{ Emprestimo, Aluno, Livro };
     use Exception;
 
     final class EmprestimoController extends Controller

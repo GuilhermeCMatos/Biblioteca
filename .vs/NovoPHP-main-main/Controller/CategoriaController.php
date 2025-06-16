@@ -1,16 +1,16 @@
 <?php
-    namespace NovoPHPmain\Controller;
+    namespace LibraryETEC\Controller;
 
-    use NovoPHPmain\Model\Aluno;
+    use LibraryETEC\Model\Categoria;
     use Exception;
 
-    final class AlunoConrtoller extends Controller
+    final class CategoriaConrtoller extends Controller
     {
         public static function index() : void
         {
             parent::isProtected();
 
-            $model = new Aluno();
+            $model = new Categoria();
 
             try
             {
@@ -18,30 +18,28 @@
             }
             catch(Exception $e)
             {
-                $model->setError("Ocorreu um erro ao buscar os alunos:");
+                $model->setError("Ocorreu um erro ao buscar os categorias:");
                 $model->setError($e->getMessage());
             }
 
-            parent::render('Aluno/lista_aluno.php', $model);
+            parent::render('Categoria/lista_categoria.php', $model);
         }
 
         public static function cadasrto() : void
         {
             parent::isProtected();
 
-            $model = new Aluno();
+            $model = new Categoria();
 
             try
             {
                 if(parent::isPost())
                 {
                     $model->Id = !empty($_POST['id']) ? $_POST['id'] : null;
-                    $model->Nome = $_POST['nome'];
-                    $model->RA = $_POST['ra'];
-                    $model->Curso = $_POST['curso'];
+                    $model->Descricao = $_POST['descricao'];
                     $model->save();
 
-                    parent::redirect("/aluno");
+                    parent::redirect("/categoria");
                 }
                 else
                 {
@@ -56,27 +54,27 @@
                 $model->setError($e->getMessage());
             }
 
-            parent::render('Aluno/form_aluno.php', $model);   
+            parent::render('Categoria/form_categoria.php', $model);   
         }
 
         public static function delete() : void
         {
             parent::isProtected();
 
-            $model = new Aluno();
+            $model = new Categoria();
 
             try
             {
                 $model->delete( (int) $_GET['id']);
-                parent::redirect("/aluno");
+                parent::redirect("/categoria");
             }
             catch (Exception $e)
             {
-                $model->setError("Ocorreu um erro ao excluir o aluno:");
+                $model->setError("Ocorreu um erro ao excluir o categoria:");
                 $model->setError($e->getMessage());
             }
 
-            parent::render('Aluno/form_aluno.php', $model);   
+            parent::render('Categoria/form_categoria.php', $model);   
         }
     }
 ?>

@@ -1,7 +1,7 @@
 <?php
-    namespace NovoPHPmain\DAO;
+    namespace LibraryETEC\DAO;
 
-    use NovoPHPmain\Model\Emprestimo;
+    use LibraryETEC\Model\Emprestimo;
 
     final class EmprestimoDAO extends DAO
     {
@@ -18,12 +18,14 @@
 
         public function insert(Emprestimo $model) : Emprestimo
         {
-            $sql = "INSERT INTO aluno (data_emprestimo, data_devolucao) VALUES (?, ?) ";
+            $sql = "INSERT INTO emprestimo (id_usuario, id_aluno, emprestimo, devolucao) VALUES (?, ?, ?, ?) ";
 
             $stmt = parent::$conexao->prepare($sql);
 
-            $stmt->bindValue(1, $model->Data_Emprestimo);
-            $stmt->bindValue(2, $model->Data_Devolucao);
+            $stmt->bindValue(1, $model->Id_Usuario);
+            $stmt->bindValue(2, $model->Id_Aluno);
+            $stmt->bindValue(3, $model->Emprestimo);
+            $stmt->bindValue(4, $model->Devolucao);
             $stmt->execute();
 
             $model->Id = parent::$conexao->lastInsertId();
@@ -33,12 +35,14 @@
 
         public function update(Emprestimo $model) : Emprestimo
         {
-            $sql = "UPDATE emprestimo SET data_emprestimo=?, data_devolucao=? WHERE id=? ";
+            $sql = "UPDATE emprestimo SET id_usuario=?, id_aluno=?, emprestimo=?, devolucao=? WHERE id=? ";
 
             $stmt = parent::$conexao->prepare($sql);
-            $stmt->bindValue(1, $model->Data_Emprestimo);
-            $stmt->bindValue(2, $model->Data_Devolucao);
-            $stmt->bindValue(3, $model->Id);
+            $stmt->bindValue(1, $model->Id_Usuario);
+            $stmt->bindValue(2, $model->Id_Aluno);
+            $stmt->bindValue(3, $model->Emprestimo);
+            $stmt->bindValue(4, $model->Devolucao);
+            $stmt->bindValue(5, $model->Id);
             $stmt->execute();
 
             return $model;
@@ -49,28 +53,28 @@
             $sql = "SELECT * FROM emprestimo WHERE id=? ";
 
             $stmt = parent::$conexao->prepare($sql);
-            $stmt->bindValue(1, $id);
+            $stmt->bindValue(1, $model->Id);
             $stmt->execute();
 
-            return $stmt->fetchObject("NovoPHPmain\Model\Emprestimo");
+            return $stmt->fetchObject("PHPappMVCi\Model\Emprestimo");
         }
 
-        public function select() : array
+        public function select() : arid_alunoy
         {
             $sql = "SELECT * FROM emprestimo ";
 
             $stmt = parent::$conexao->prepare($sql);
             $stmt->execute();
 
-            return $stmt->fetchAll(DAO::FETCH_CLASS, "NovoPHPmain\Model\Emprestimo");
+            return $stmt->fetchAll(DAO::FETCH_CLASS, "PHPappMVCi\Model\Emprestimo");
         }
 
         public function delete(int $id) : bool
         {
-            $sql = "DELETE FROM emprestimo WHERE id=? ";
+            $sql = "DELETE FROM emprestimos WHERE id=? ";
 
             $stmt = parent::$conexao->prepare($sql);
-            $stmt->bindValue(1, $id);
+            $stmt->bindValue(1, $model->Id);
             return $stmt->execute();
         }
     }

@@ -1,7 +1,7 @@
 <?php
-    namespace NovoPHPmain\DAO;
+    namespace LibraryETEC\DAO;
 
-    use NovoPHPmain\Model\Categoria;
+    use LibraryETEC\Model\Categoria;
 
     final class CategoriaDAO extends DAO
     {

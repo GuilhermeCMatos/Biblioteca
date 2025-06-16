@@ -1,5 +1,5 @@
 <?php
-    namespace NovoPHPmain\DAO;
+    namespace LibraryETEC\DAO;
 
     use PDO;
 

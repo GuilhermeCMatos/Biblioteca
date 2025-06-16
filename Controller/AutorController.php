@@ -1,7 +1,7 @@
 <?php
-    namespace LibraryETEC\Controller;
+    namespace NovoPHPmain\Controller;
 
-    use LibraryETEC\Model\Autor;
+    use NovoPHPmain\Model\Autor;
     use Exception;
 
     final class AutorConrtoller extends Controller

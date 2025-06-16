@@ -1,7 +1,7 @@
 <?php
-    namespace LibraryETEC\Controller;
+    namespace NovoPHPmain\Controller;
 
-    use LibraryETEC\Model\Categoria;
+    use NovoPHPmain\Model\Categoria;
     use Exception;
 
     final class CategoriaConrtoller extends Controller

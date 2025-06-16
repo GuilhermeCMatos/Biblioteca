@@ -1,5 +1,5 @@
 <?php
-    namespace NovoPHPmain\Controller;
+    namespace LibraryETEC\Controller;
 
     final class InicialController extends Controller
     {

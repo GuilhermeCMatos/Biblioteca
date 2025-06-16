@@ -1,16 +1,16 @@
 <?php
-    namespace NovoPHPmain\Controller;
+    namespace LibraryETEC\Controller;
 
-    use NovoPHPmain\Model\Aluno;
+    use LibraryETEC\Model\{ Livro, Categoria, Autor };
     use Exception;
 
-    final class AlunoConrtoller extends Controller
+    final class LivroConrtoller extends Controller
     {
         public static function index() : void
         {
             parent::isProtected();
 
-            $model = new Aluno();
+            $model = new Livro();
 
             try
             {
@@ -18,30 +18,33 @@
             }
             catch(Exception $e)
             {
-                $model->setError("Ocorreu um erro ao buscar os alunos:");
+                $model->setError("Ocorreu um erro ao buscar os livros:");
                 $model->setError($e->getMessage());
             }
 
-            parent::render('Aluno/lista_aluno.php', $model);
+            parent::render('Livro/lista_livro.php', $model);
         }
 
         public static function cadasrto() : void
         {
             parent::isProtected();
 
-            $model = new Aluno();
+            $model = new Livro();
 
             try
             {
                 if(parent::isPost())
                 {
                     $model->Id = !empty($_POST['id']) ? $_POST['id'] : null;
-                    $model->Nome = $_POST['nome'];
-                    $model->RA = $_POST['ra'];
-                    $model->Curso = $_POST['curso'];
+                    $model->Titulo = $_POST['titulo'];
+                    $model->Id_Categoria = $_POST['id_categoria'];
+                    $model->Isbn = $_POST['isbn'];
+                    $model->Ano = $_POST['ano'];
+                    $model->Editora = $_POST['editora'];
+                    $model->Id_Autores = $_POST['autor'];
                     $model->save();
 
-                    parent::redirect("/aluno");
+                    parent::redirect("/livro");
                 }
                 else
                 {
@@ -56,27 +59,30 @@
                 $model->setError($e->getMessage());
             }
 
-            parent::render('Aluno/form_aluno.php', $model);   
+            $model->rows_categorias = new Categoria()->getAllRows();
+            $model->rows_autores = new Autor()->getAllRows();
+
+            parent::render('Livro/form_livro.php', $model);   
         }
 
         public static function delete() : void
         {
             parent::isProtected();
 
-            $model = new Aluno();
+            $model = new Livro();
 
             try
             {
                 $model->delete( (int) $_GET['id']);
-                parent::redirect("/aluno");
+                parent::redirect("/livro");
             }
             catch (Exception $e)
             {
-                $model->setError("Ocorreu um erro ao excluir o aluno:");
+                $model->setError("Ocorreu um erro ao excluir o livro:");
                 $model->setError($e->getMessage());
             }
 
-            parent::render('Aluno/form_aluno.php', $model);   
+            parent::render('Livro/form_livro.php', $model);   
         }
     }
 ?>

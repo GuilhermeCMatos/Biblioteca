@@ -1,7 +1,7 @@
 <?php
-    namespace LibraryETEC\Model;
+    namespace NovoPHPmain\Model;
 
-    use LibraryETEC\DAO\AlunoDAO;
+    use NovoPHPmain\DAO\AlunoDAO;
     use Exception;
 
     final class Aluno extends Model

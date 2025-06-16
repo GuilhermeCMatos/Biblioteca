@@ -1,16 +1,16 @@
 <?php
-    namespace NovoPHPmain\Controller;
+    namespace LibraryETEC\Controller;
 
-    use NovoPHPmain\Model\Aluno;
+    use LibraryETEC\Model\Autor;
     use Exception;
 
-    final class AlunoConrtoller extends Controller
+    final class AutorConrtoller extends Controller
     {
         public static function index() : void
         {
             parent::isProtected();
 
-            $model = new Aluno();
+            $model = new Autor();
 
             try
             {
@@ -18,18 +18,18 @@
             }
             catch(Exception $e)
             {
-                $model->setError("Ocorreu um erro ao buscar os alunos:");
+                $model->setError("Ocorreu um erro ao buscar os autores:");
                 $model->setError($e->getMessage());
             }
 
-            parent::render('Aluno/lista_aluno.php', $model);
+            parent::render('Autor/lista_autor.php', $model);
         }
 
         public static function cadasrto() : void
         {
             parent::isProtected();
 
-            $model = new Aluno();
+            $model = new Autor();
 
             try
             {
@@ -37,11 +37,11 @@
                 {
                     $model->Id = !empty($_POST['id']) ? $_POST['id'] : null;
                     $model->Nome = $_POST['nome'];
-                    $model->RA = $_POST['ra'];
-                    $model->Curso = $_POST['curso'];
+                    $model->Nascimento = $_POST['nascimento'];
+                    $model->CPF = $_POST['cpf'];
                     $model->save();
 
-                    parent::redirect("/aluno");
+                    parent::redirect("/autor");
                 }
                 else
                 {
@@ -56,27 +56,27 @@
                 $model->setError($e->getMessage());
             }
 
-            parent::render('Aluno/form_aluno.php', $model);   
+            parent::render('Autor/form_autor.php', $model);   
         }
 
         public static function delete() : void
         {
             parent::isProtected();
 
-            $model = new Aluno();
+            $model = new Autor();
 
             try
             {
                 $model->delete( (int) $_GET['id']);
-                parent::redirect("/aluno");
+                parent::redirect("/autor");
             }
             catch (Exception $e)
             {
-                $model->setError("Ocorreu um erro ao excluir o aluno:");
+                $model->setError("Ocorreu um erro ao excluir o autor:");
                 $model->setError($e->getMessage());
             }
 
-            parent::render('Aluno/form_aluno.php', $model);   
+            parent::render('Autor/form_autor.php', $model);   
         }
     }
 ?>

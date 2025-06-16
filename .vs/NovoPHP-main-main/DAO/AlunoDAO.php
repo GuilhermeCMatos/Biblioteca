@@ -1,30 +1,30 @@
 <?php
-    namespace NovoPHPmain\DAO;
+    namespace LibraryETEC\DAO;
 
-    use NovoPHPmain\Model\Autor;
+    use LibraryETEC\Model\Aluno;
 
-    final class AutorDAO extends DAO
+    final class AlunoDAO extends DAO
     {
         public function __construct()
         {
             parent::__construct();
         }
 
-        public function save(Autor $model) : Autor
+        public function save(Aluno $model) : Aluno
         {
             return ($model->Id == null) ? $this->insert($model) :
                 $this->update($model);
         }
 
-        public function insert(Autor $model) : Autor
+        public function insert(Aluno $model) : Aluno
         {
-            $sql = "INSERT INTO autor (nome, nascimento, cpf) VALUES (?, ?, ?) ";
+            $sql = "INSERT INTO aluno (nome, ra, curso) VALUES (?, ?, ?) ";
 
             $stmt = parent::$conexao->prepare($sql);
 
             $stmt->bindValue(1, $model->Nome);
-            $stmt->bindValue(2, $model->Nascimento);
-            $stmt->bindValue(3, $model->CPF);
+            $stmt->bindValue(2, $model->RA);
+            $stmt->bindValue(3, $model->Curso);
             $stmt->execute();
 
             $model->Id = parent::$conexao->lastInsertId();
@@ -32,44 +32,44 @@
             return $model;
         }
 
-        public function update(Autor $model) : Autor
+        public function update(Aluno $model) : Aluno
         {
-            $sql = "UPDATE autor SET nome=?, nascimento=?, cpf=? WHERE id=? ";
+            $sql = "UPDATE aluno SET nome=?, ra=?, curso=? WHERE id=? ";
 
             $stmt = parent::$conexao->prepare($sql);
             $stmt->bindValue(1, $model->Nome);
-            $stmt->bindValue(2, $model->Nascimento);
-            $stmt->bindValue(3, $model->CPF);
+            $stmt->bindValue(2, $model->RA);
+            $stmt->bindValue(3, $model->Curso);
             $stmt->bindValue(4, $model->Id);
             $stmt->execute();
 
             return $model;
         }
 
-        public function selectById(int $id) : ?Autor
+        public function selectById(int $id) : ?Aluno
         {
-            $sql = "SELECT * FROM autor WHERE id=? ";
+            $sql = "SELECT * FROM aluno WHERE id=? ";
 
             $stmt = parent::$conexao->prepare($sql);
             $stmt->bindValue(1, $model->Id);
             $stmt->execute();
 
-            return $stmt->fetchObject("PHPappMVCi\Model\Autor");
+            return $stmt->fetchObject("PHPappMVCi\Model\Aluno");
         }
 
         public function select() : array
         {
-            $sql = "SELECT * FROM autor ";
+            $sql = "SELECT * FROM aluno ";
 
             $stmt = parent::$conexao->prepare($sql);
             $stmt->execute();
 
-            return $stmt->fetchAll(DAO::FETCH_CLASS, "PHPappMVCi\Model\Autor");
+            return $stmt->fetchAll(DAO::FETCH_CLASS, "PHPappMVCi\Model\Aluno");
         }
 
         public function delete(int $id) : bool
         {
-            $sql = "DELETE FROM autors WHERE id=? ";
+            $sql = "DELETE FROM alunos WHERE id=? ";
 
             $stmt = parent::$conexao->prepare($sql);
             $stmt->bindValue(1, $model->Id);

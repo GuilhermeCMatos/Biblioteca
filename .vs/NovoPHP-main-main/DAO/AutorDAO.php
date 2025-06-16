@@ -1,7 +1,7 @@
 <?php
-    namespace NovoPHPmain\DAO;
+    namespace LibraryETEC\DAO;
 
-    use NovoPHPmain\Model\Autor;
+    use LibraryETEC\Model\Autor;
 
     final class AutorDAO extends DAO
     {
