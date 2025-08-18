@@ -1,8 +1,8 @@
 <?php
-    namespace NovoPHPmain\Model;
+    namespace Biblioteca\Model;
 
 use DateTime;
-use NovoPHPmain\DAO\EmprestimoDAO;
+use Biblioteca\DAO\EmprestimoDAO;
     use Exception;
 
    /**

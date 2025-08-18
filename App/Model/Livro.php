@@ -1,15 +1,15 @@
 <?php
-    namespace NovoPHPmain\Model;
+    namespace Biblioteca\Model;
 
-    use NovoPHPmain\DAO\CategoriaDAO;
+    use Biblioteca\DAO\LivroDao;
     use Exception;
 
-    /**
+   /**
  * A camada model é responsável por transportar os dados da Controller até a DAO e vice-versa.
  * Também é atribuído a Model a validação dos dados da View e controle de acesso aos métodos
  * da DAO.
  */
-final class Categoria extends Model
+final class Livro extends Model
 {
     /**
      * Declaração das propriedades conforme campos da tabela no banco de dados.
@@ -17,17 +17,63 @@ final class Categoria extends Model
      */
     public ?int $Id = null;
 
-    public ?string $Descricao
+    public array $rows_categorias = [];
+    public array $rows_autores = [];
+
+    public $Id_Categoria;
+
+    public $Id_Autores = [];
+
+    public ?string $Titulo
     {
         set
         {
             if(strlen($value) < 3)
-                throw new Exception("Descricao deve ter no mínimo 3 caracteres.");
+                throw new Exception("Título deve ter no mínimo 3 caracteres.");
 
-            $this->Descricao = $value;
+            $this->Titulo = $value;
         }
 
-        get => $this->Descricao ?? null;
+        get => $this->Titulo ?? null;
+    }
+
+    public ?string $Isbn
+    {
+        set
+        {
+            if(strlen($value) < 3)
+                throw new Exception("ISBN deve ter no mínimo 3 caracteres.");
+
+            $this->Isbn = $value;
+        }
+
+        get => $this->Isbn ?? null;
+    }
+
+    public ?string $Editora
+    {
+        set
+        {
+            if(strlen($value) < 3)
+                throw new Exception("Editora deve ter no mínimo 3 caracteres.");
+
+            $this->Editora = $value;
+        }
+
+        get => $this->Editora ?? null;
+    }
+
+    public ?string $Ano
+    {
+        set
+        {
+            if(strlen($value) < 3)
+                throw new Exception("Ano deve ter no mínimo 3 caracteres.");
+
+            $this->Ano = $value;
+        }
+
+        get => $this->Ano ?? null;
     }
 
 
@@ -35,7 +81,7 @@ final class Categoria extends Model
      * Declaração do método save que chamará a DAO para gravar no banco de dados
      * o model preenchido.
      */
-    function save() : Categoria
+    function save() : Livro
     {
         /**
          * Note que os objetos da classe AlunoDAO estão sendo criados de forma anônima.
@@ -43,7 +89,7 @@ final class Categoria extends Model
          * não sendo necessário armazenar o objeto em uma variável.
          * Leia sobre: https://www.php.net/manual/pt_BR/language.oop5.anonymous.php
          */
-        return new CategoriaDAO()->save($this);
+        return new LivroDAO()->save($this);
     }
 
 
@@ -52,9 +98,9 @@ final class Categoria extends Model
      * O método recebe um parâmetro do tipo inteiro que é o id do registro
      * a ser recuperado do MySQL, via camada DAO.
      */
-    function getById(int $id) : ?Categoria
+    function getById(int $id) : ?Livro
     {
-        return new CategoriaDAO()->selectById($id);
+        return new LivroDAO()->selectById($id);
     }
 
 
@@ -65,7 +111,7 @@ final class Categoria extends Model
      */
     function getAllRows() : array
     {
-        $this->rows = new CategoriaDAO()->select();
+        $this->rows = new LivroDAO()->select();
 
         return $this->rows;
     }
@@ -78,6 +124,6 @@ final class Categoria extends Model
      */
     function delete(int $id) : bool
     {
-        return new CategoriaDAO()->delete($id);
+        return new LivroDAO()->delete($id);
     }
 }

@@ -1,7 +1,7 @@
 <?php
-    namespace NovoPHPmain\DAO;
+    namespace Biblioteca\DAO;
 
-    use NovoPHPmain\Model\Livro;
+    use Biblioteca\Model\Livro;
 
    
 /**

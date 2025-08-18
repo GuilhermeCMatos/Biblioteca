@@ -1,7 +1,7 @@
 <?php
-    namespace NovoPHPmain\Model;
+    namespace Biblioteca\Model;
 
-    use NovoPHPmain\DAO\LoginDAO;
+    use Biblioteca\DAO\LoginDAO;
     use Exception;
 
     final class Login extends Model

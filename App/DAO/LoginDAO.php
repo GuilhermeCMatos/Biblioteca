@@ -1,7 +1,7 @@
 <?php
-    namespace NovoPHPmain\DAO;
+    namespace Biblioteca\DAO;
 
-    use NovoPHPmain\Model\Aluno;
+    use Biblioteca\Model\Aluno;
 
     final class AlunoDAO extends DAO
     {
@@ -54,7 +54,7 @@
             $stmt->bindValue(1, $id);
             $stmt->execute();
 
-            return $stmt->fetchObject("NovoPHPmain\Model\Aluno");
+            return $stmt->fetchObject("Biblioteca\Model\Aluno");
         }
 
         public function select() : array
@@ -64,7 +64,7 @@
             $stmt = parent::$conexao->prepare($sql);
             $stmt->execute();
 
-            return $stmt->fetchAll(DAO::FETCH_CLASS, "NovoPHPmain\Model\Aluno");
+            return $stmt->fetchAll(DAO::FETCH_CLASS, "Biblioteca\Model\Aluno");
         }
 
         public function delete(int $id) : bool

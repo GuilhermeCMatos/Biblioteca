@@ -4,15 +4,14 @@
  * Declaração de namespaces com sub-namespaces:
  * https://www.php.net/manual/pt_BR/language.namespaces.nested.php
  */
-namespace NovoPHPmain\Controller;
+namespace Biblioteca\Controller;
 
 
 /**
  * Definimos aqui que nossa classe precisa incluir uma classe de outro subnamespace
  * do projeto, no caso a classe Aluno do sub-namespace Model
  */
-
-use NovoPHPmain\Model\Categoria;
+use Biblioteca\Model{ Emprestimo, Aluno, Livro };
 use Exception;
 
 /**
@@ -26,23 +25,23 @@ use Exception;
  * pode fazer o extends dela, por exemplo: class Teste extends AlunoController.
  * Veja mais sobre final aqui: https://www.php.net/manual/pt_BR/language.oop5.final.php
  */
-final class CategoriaController extends Controller
+final class EmprestimoController extends Controller
 {
     public static function index() : void
     {
         parent::isProtected(); 
 
-        $model = new Categoria();
+        $model = new Emprestimo();
         
         try {
             $model->getAllRows();
 
         } catch(Exception $e) {
-            $model->setError("Ocorreu um erro ao buscar as categorias:");
+            $model->setError("Ocorreu um erro ao buscar os emprestimos:");
             $model->setError($e->getMessage());
         }
 
-        parent::render('Categoria/lista_categoria.php', $model); 
+        parent::render('Emprestimo/lista_emprestimo.php', $model); 
     } 
 
     /**
@@ -55,17 +54,21 @@ final class CategoriaController extends Controller
     {
         parent::isProtected(); 
 
-        $model = new Categoria();
+        $model = new Emprestimo();
         
         try
         {
             if(parent::isPost())
             {
                 $model->Id = !empty($_POST['id']) ? $_POST['id'] : null;
-                $model->Descricao = $_POST['descricao'];
+                $model->Id_Aluno = $_POST['id_aluno'];
+                $model->Id_Livro = $_POST['id_livro'];
+                $model->Id_Usuario = LoginController::getUsuario()->Id;
+                $model->Data_Emprestimo = $_POST['data_emprestimo'];
+                $model->Data_Devolucao = $_POST['data_devolucao'];           
                 $model->save();
 
-                parent::redirect("/categoria");
+                parent::redirect("/emprestimo");
 
             } else {
     
@@ -80,25 +83,28 @@ final class CategoriaController extends Controller
             $model->setError($e->getMessage());
         }
 
-        parent::render('Categoria/form_categoria.php', $model);        
+        $model->rows_alunos = new Aluno()->getAllRows();
+        $model->rows_livros = new Livro()->getAllRows();
+
+        parent::render('Emprestimo/form_emprestimo.php', $model);        
     } 
     
     public static function delete() : void
     {
         parent::isProtected(); 
 
-        $model = new Categoria();
+        $model = new Emprestimo();
         
         try 
         {
             $model->delete( (int) $_GET['id']);
-            parent::redirect("/categoria");
+            parent::redirect("/emprestimo");
 
         } catch(Exception $e) {
-            $model->setError("Ocorreu um erro ao excluir a categoria:");
+            $model->setError("Ocorreu um erro ao excluir o emprestimo:");
             $model->setError($e->getMessage());
         } 
         
-        parent::render('Categoria/lista_categoria.php', $model);  
+        parent::render('Emprestimo/lista_emprestimo.php', $model);  
     }
 }

@@ -1,7 +1,7 @@
 <?php
-    namespace NovoPHPmain\DAO;
+    namespace Biblioteca\DAO;
 
-    use NovoPHPmain\Model\Autor;
+    use Biblioteca\Model\Autor;
 
     /**
  * As classes DAO (Data Access Object) são responsáveis por executar os

@@ -1,5 +1,5 @@
 <?php
-    namespace NovoPHPmain\Model;
+    namespace Biblioteca\Model;
 
     abstract class Model
     {

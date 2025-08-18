@@ -1,13 +1,13 @@
 <?php
-    namespace NovoPHPmain\DAO;
+    namespace Biblioteca\DAO;
 
-    use NovoPHPmain\Model\Emprestimo;
+    use Biblioteca\Model\Categoria;
 
     /**
  * As classes DAO (Data Access Object) são responsáveis por executar os
  * SQL junto ao banco de dados.
  */
-final class EmprestimoDAO extends DAO
+final class CategoriaDAO extends DAO
 {
      /**
      * Método construtor, sempre chamado na classe quando a classe é instanciada.
@@ -23,7 +23,7 @@ final class EmprestimoDAO extends DAO
         parent::__construct();
     }
 
-    public function save(Emprestimo $model) : Emprestimo
+    public function save(Categoria $model) : Categoria
     {
         /**
          * Uso do operador ternário para verificar se trata-se de uma inserção
@@ -37,12 +37,10 @@ final class EmprestimoDAO extends DAO
      * Método que recebe um model e extrai os dados do model para realizar o insert
      * na tabela correspondente ao model. Note o tipo do parâmetro declarado.
      */
-    public function insert(Emprestimo $model) : Emprestimo
+    public function insert(Categoria $model) : Categoria
     {
         // Trecho de código SQL com marcadores ? para substituição posterior, no prepare
-        $sql = "INSERT INTO emprestimo (id_usuario, id_aluno, id_livro, data_emprestimo, data_devolucao) 
-                VALUES 
-                (?, ?, ?, ?, ?) ";
+        $sql = "INSERT INTO categoria (descricao) VALUES (?) ";
 
         // Declaração da variável stmt que conterá a montagem da consulta. Observe que
         // estamos acessando o método prepare dentro da propriedade que guarda a conexão
@@ -55,11 +53,7 @@ final class EmprestimoDAO extends DAO
         // determinada posição, ou seja, o valor que está em 3, será trocado pelo terceiro ?
         // No que o bindValue está recebendo o model que veio via parâmetro e acessamos
         // via seta qual dado do model queremos pegar para a posição em questão.
-        $stmt->bindValue(1, $model->Id_Usuario);
-        $stmt->bindValue(2, $model->Id_Aluno);
-        $stmt->bindValue(3, $model->Id_Livro);
-        $stmt->bindValue(4, $model->Data_Emprestimo);
-        $stmt->bindValue(5, $model->Data_Devolucao);
+        $stmt->bindValue(1, $model->Descricao);
 
         // Ao fim, onde todo SQL está montando, executamos a consulta.
         $stmt->execute();
@@ -74,18 +68,13 @@ final class EmprestimoDAO extends DAO
      * Método que recebe o Model preenchido e atualiza no banco de dados.
      * Note que neste model é necessário ter a propriedade id preenchida.
      */
-    public function update(Emprestimo $model) : Emprestimo
+    public function update(Categoria $model) : Categoria
     {
-        $sql = "UPDATE emprestimo 
-                SET id_aluno=?, id_livro=?, data_emprestimo=?, data_devolucao=? 
-                WHERE id=? ";
+        $sql = "UPDATE categoria SET descricao=? WHERE id=? ";
 
         $stmt = parent::$conexao->prepare($sql);
-        $stmt->bindValue(1, $model->Id_Aluno);
-        $stmt->bindValue(2, $model->Id_Livro);
-        $stmt->bindValue(3, $model->Data_Emprestimo);
-        $stmt->bindValue(4, $model->Data_Devolucao);
-        $stmt->bindValue(5, $model->Id);
+        $stmt->bindValue(1, $model->Descricao);
+        $stmt->bindValue(2, $model->Id);
         $stmt->execute();
         
         return $model;
@@ -96,20 +85,15 @@ final class EmprestimoDAO extends DAO
      * Retorna um registro específico da tabela pessoa do banco de dados.
      * Note que o método exige um parâmetro $id do tipo inteiro.
      */
-    public function selectById(int $id) : ?Emprestimo
+    public function selectById(int $id) : ?Categoria
     {
-        $sql = "SELECT * FROM emprestimo WHERE id=? ";
+        $sql = "SELECT * FROM categoria WHERE id=? ";
 
         $stmt = parent::$conexao->prepare($sql);  
         $stmt->bindValue(1, $id);
         $stmt->execute();
 
-        $model = $stmt->fetchObject("App\Model\Emprestimo");
-
-        $model->Dados_Aluno = new AlunoDAO()->selectById($model->Id_Aluno);
-        $model->Dados_Livro = new LivroDAO()->selectById($model->Id_Livro);
-
-        return $model;
+        return $stmt->fetchObject("App\Model\Categoria");
     }
 
 
@@ -118,20 +102,15 @@ final class EmprestimoDAO extends DAO
      */
     public function select() : array
     {
-        $sql = "SELECT * FROM emprestimo ";
+        $sql = "SELECT * FROM categoria ";
 
         $stmt = parent::$conexao->prepare($sql);  
         $stmt->execute();
 
-        $arr_emprestimos = $stmt->fetchAll(DAO::FETCH_CLASS, "App\Model\Emprestimo");
-
-        foreach($arr_emprestimos as $item)
-        {
-            $item->Dados_Aluno = new AlunoDAO()->selectById($item->Id_Aluno);
-            $item->Dados_Livro = new LivroDAO()->selectById($item->Id_Livro);
-        }
-        
-        return $arr_emprestimos;
+        // Retorna um array com as linhas retornadas da consulta. Observe que
+        // o array é um array de objetos. Os objetos são do tipo stdClass e 
+        // foram criados automaticamente pelo método fetchAll do PDO.
+        return $stmt->fetchAll(DAO::FETCH_CLASS, "App\Model\Categoria");
     }
 
     /**
@@ -140,7 +119,7 @@ final class EmprestimoDAO extends DAO
      */
     public function delete(int $id) : bool
     {
-        $sql = "DELETE FROM emprestimo WHERE id=? ";
+        $sql = "DELETE FROM categoria WHERE id=? ";
 
         $stmt = parent::$conexao->prepare($sql);  
         $stmt->bindValue(1, $id);

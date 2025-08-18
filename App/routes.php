@@ -1,6 +1,6 @@
 <?php
 
-    use NovoPHPmain\Controller\
+    use Biblioteca\Controller\
     {
         AlunoController,
         AutorController,

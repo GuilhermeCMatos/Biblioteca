@@ -1,7 +1,7 @@
 <?php
-    namespace NovoPHPmain\Model;
+    namespace Biblioteca\Model;
 
-    use NovoPHPmain\DAO\LivroDao;
+    use Biblioteca\DAO\AlunoDAO;
     use Exception;
 
    /**
@@ -9,7 +9,7 @@
  * Também é atribuído a Model a validação dos dados da View e controle de acesso aos métodos
  * da DAO.
  */
-final class Livro extends Model
+final class Autor extends Model
 {
     /**
      * Declaração das propriedades conforme campos da tabela no banco de dados.
@@ -17,71 +17,55 @@ final class Livro extends Model
      */
     public ?int $Id = null;
 
-    public array $rows_categorias = [];
-    public array $rows_autores = [];
-
-    public $Id_Categoria;
-
-    public $Id_Autores = [];
-
-    public ?string $Titulo
+    public ?string $Nome
     {
         set
         {
             if(strlen($value) < 3)
-                throw new Exception("Título deve ter no mínimo 3 caracteres.");
+                throw new Exception("Nome deve ter no mínimo 3 caracteres.");
 
-            $this->Titulo = $value;
+            $this->Nome = $value;
         }
 
-        get => $this->Titulo ?? null;
+        get => $this->Nome ?? null;
     }
 
-    public ?string $Isbn
+
+    public ?string $Data_Nascimento
     {
         set
         {
-            if(strlen($value) < 3)
-                throw new Exception("ISBN deve ter no mínimo 3 caracteres.");
+            if(empty($value))
+                throw new Exception("Preencha a Data de Nascimento");
 
-            $this->Isbn = $value;
+            $this->Data_Nascimento = $value;
         }
 
-        get => $this->Isbn ?? null;
+        get => $this->Data_Nascimento ?? null;
     }
 
-    public ?string $Editora
+
+    public ?string $CPF
     {
         set
         {
-            if(strlen($value) < 3)
-                throw new Exception("Editora deve ter no mínimo 3 caracteres.");
+            if(strlen($value) < 11)
+                throw new Exception("CPF deve ter no mínimo 11 caracteres.");
 
-            $this->Editora = $value;
+            $this->CPF = $value;
         }
 
-        get => $this->Editora ?? null;
-    }
-
-    public ?string $Ano
-    {
-        set
-        {
-            if(strlen($value) < 3)
-                throw new Exception("Ano deve ter no mínimo 3 caracteres.");
-
-            $this->Ano = $value;
-        }
-
-        get => $this->Ano ?? null;
+        get => $this->CPF ?? null;
     }
 
 
+
+    
     /**
      * Declaração do método save que chamará a DAO para gravar no banco de dados
      * o model preenchido.
      */
-    function save() : Livro
+    function save() : Autor
     {
         /**
          * Note que os objetos da classe AlunoDAO estão sendo criados de forma anônima.
@@ -89,7 +73,7 @@ final class Livro extends Model
          * não sendo necessário armazenar o objeto em uma variável.
          * Leia sobre: https://www.php.net/manual/pt_BR/language.oop5.anonymous.php
          */
-        return new LivroDAO()->save($this);
+        return new AutorDAO()->save($this);
     }
 
 
@@ -98,9 +82,9 @@ final class Livro extends Model
      * O método recebe um parâmetro do tipo inteiro que é o id do registro
      * a ser recuperado do MySQL, via camada DAO.
      */
-    function getById(int $id) : ?Livro
+    function getById(int $id) : ?Autor
     {
-        return new LivroDAO()->selectById($id);
+        return new AutorDAO()->selectById($id);
     }
 
 
@@ -111,7 +95,7 @@ final class Livro extends Model
      */
     function getAllRows() : array
     {
-        $this->rows = new LivroDAO()->select();
+        $this->rows = new AutorDAO()->select();
 
         return $this->rows;
     }
@@ -124,6 +108,6 @@ final class Livro extends Model
      */
     function delete(int $id) : bool
     {
-        return new LivroDAO()->delete($id);
+        return new AutorDAO()->delete($id);
     }
 }

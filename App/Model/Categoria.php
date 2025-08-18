@@ -1,15 +1,15 @@
 <?php
-    namespace NovoPHPmain\Model;
+    namespace Biblioteca\Model;
 
-    use NovoPHPmain\DAO\AlunoDAO;
+    use Biblioteca\DAO\CategoriaDAO;
     use Exception;
 
-   /**
+    /**
  * A camada model é responsável por transportar os dados da Controller até a DAO e vice-versa.
  * Também é atribuído a Model a validação dos dados da View e controle de acesso aos métodos
  * da DAO.
  */
-final class Autor extends Model
+final class Categoria extends Model
 {
     /**
      * Declaração das propriedades conforme campos da tabela no banco de dados.
@@ -17,55 +17,25 @@ final class Autor extends Model
      */
     public ?int $Id = null;
 
-    public ?string $Nome
+    public ?string $Descricao
     {
         set
         {
             if(strlen($value) < 3)
-                throw new Exception("Nome deve ter no mínimo 3 caracteres.");
+                throw new Exception("Descricao deve ter no mínimo 3 caracteres.");
 
-            $this->Nome = $value;
+            $this->Descricao = $value;
         }
 
-        get => $this->Nome ?? null;
+        get => $this->Descricao ?? null;
     }
 
 
-    public ?string $Data_Nascimento
-    {
-        set
-        {
-            if(empty($value))
-                throw new Exception("Preencha a Data de Nascimento");
-
-            $this->Data_Nascimento = $value;
-        }
-
-        get => $this->Data_Nascimento ?? null;
-    }
-
-
-    public ?string $CPF
-    {
-        set
-        {
-            if(strlen($value) < 11)
-                throw new Exception("CPF deve ter no mínimo 11 caracteres.");
-
-            $this->CPF = $value;
-        }
-
-        get => $this->CPF ?? null;
-    }
-
-
-
-    
     /**
      * Declaração do método save que chamará a DAO para gravar no banco de dados
      * o model preenchido.
      */
-    function save() : Autor
+    function save() : Categoria
     {
         /**
          * Note que os objetos da classe AlunoDAO estão sendo criados de forma anônima.
@@ -73,7 +43,7 @@ final class Autor extends Model
          * não sendo necessário armazenar o objeto em uma variável.
          * Leia sobre: https://www.php.net/manual/pt_BR/language.oop5.anonymous.php
          */
-        return new AutorDAO()->save($this);
+        return new CategoriaDAO()->save($this);
     }
 
 
@@ -82,9 +52,9 @@ final class Autor extends Model
      * O método recebe um parâmetro do tipo inteiro que é o id do registro
      * a ser recuperado do MySQL, via camada DAO.
      */
-    function getById(int $id) : ?Autor
+    function getById(int $id) : ?Categoria
     {
-        return new AutorDAO()->selectById($id);
+        return new CategoriaDAO()->selectById($id);
     }
 
 
@@ -95,7 +65,7 @@ final class Autor extends Model
      */
     function getAllRows() : array
     {
-        $this->rows = new AutorDAO()->select();
+        $this->rows = new CategoriaDAO()->select();
 
         return $this->rows;
     }
@@ -108,6 +78,6 @@ final class Autor extends Model
      */
     function delete(int $id) : bool
     {
-        return new AutorDAO()->delete($id);
+        return new CategoriaDAO()->delete($id);
     }
 }

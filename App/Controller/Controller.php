@@ -1,7 +1,7 @@
 <?php
-    namespace NovoPHPmain\Controller;
+    namespace Biblioteca\Controller;
 
-    use NovoPHPmain\Model\Model;
+    use Biblioteca\Model\Model;
 
     abstract class Controller
     {

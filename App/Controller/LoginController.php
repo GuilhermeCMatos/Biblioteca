@@ -1,7 +1,7 @@
 <?php
-    namespace NovoPHPmain\Controller;
+    namespace Biblioteca\Controller;
 
-    use NovoPHPmain\Model\Login;
+    use Biblioteca\Model\Login;
 
     final class LoginController
     {
