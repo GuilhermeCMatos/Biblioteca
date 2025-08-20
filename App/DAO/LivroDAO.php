@@ -1,7 +1,7 @@
 <?php
-    namespace Biblioteca\DAO;
+    namespace App\DAO;
 
-    use Biblioteca\Model\Livro;
+    use App\Model\Livro;
 
    
 /**

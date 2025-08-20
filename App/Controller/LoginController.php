@@ -1,7 +1,7 @@
 <?php
-    namespace Biblioteca\Controller;
+    namespace App\Controller;
 
-    use Biblioteca\Model\Login;
+    use App\Model\Login;
 
     final class LoginController
     {

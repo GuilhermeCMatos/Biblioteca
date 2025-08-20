@@ -1,8 +1,8 @@
 <?php
-    namespace Biblioteca\Model;
+    namespace App\Model;
 
 use DateTime;
-use Biblioteca\DAO\EmprestimoDAO;
+use App\DAO\EmprestimoDAO;
     use Exception;
 
    /**

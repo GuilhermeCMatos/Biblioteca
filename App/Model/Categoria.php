@@ -1,7 +1,7 @@
 <?php
-    namespace Biblioteca\Model;
+    namespace App\Model;
 
-    use Biblioteca\DAO\CategoriaDAO;
+    use App\DAO\CategoriaDAO;
     use Exception;
 
     /**

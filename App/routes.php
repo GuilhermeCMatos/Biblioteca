@@ -1,6 +1,6 @@
 <?php
 
-    use Biblioteca\Controller\
+    use App\Controller\
     {
         AlunoController,
         AutorController,

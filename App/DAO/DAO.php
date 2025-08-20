@@ -1,5 +1,5 @@
 <?php
-    namespace Biblioteca\DAO;
+    namespace App\DAO;
 
     use PDO;
 

@@ -1,7 +1,7 @@
 <?php
-    namespace Biblioteca\Model;
+    namespace App\Model;
 
-    use Biblioteca\DAO\AlunoDAO;
+    use App\DAO\AlunoDAO;
     use Exception;
 
     final class Aluno extends Model

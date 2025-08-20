@@ -4,7 +4,7 @@
  * Declaração de namespaces com sub-namespaces:
  * https://www.php.net/manual/pt_BR/language.namespaces.nested.php
  */
-namespace Biblioteca\Controller;
+namespace App\Controller;
 
 
 /**
@@ -12,7 +12,7 @@ namespace Biblioteca\Controller;
  * do projeto, no caso a classe Aluno do sub-namespace Model
  */
 
-use Biblioteca\Model\Categoria;
+use App\Model\Categoria;
 use Exception;
 
 /**

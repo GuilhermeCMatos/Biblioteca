@@ -1,7 +1,7 @@
 <?php
-    namespace Biblioteca\Model;
+    namespace App\Model;
 
-    use Biblioteca\DAO\LoginDAO;
+    use App\DAO\LoginDAO;
     use Exception;
 
     final class Login extends Model

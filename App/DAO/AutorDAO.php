@@ -1,7 +1,7 @@
 <?php
-    namespace Biblioteca\DAO;
+    namespace App\DAO;
 
-    use Biblioteca\Model\Autor;
+    use App\Model\Autor;
 
     /**
  * As classes DAO (Data Access Object) são responsáveis por executar os

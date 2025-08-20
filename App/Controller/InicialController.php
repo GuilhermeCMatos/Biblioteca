@@ -1,5 +1,5 @@
 <?php
-    namespace Biblioteca\Controller;
+    namespace App\Controller;
 
     final class InicialController extends Controller
     {

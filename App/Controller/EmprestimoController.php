@@ -4,14 +4,14 @@
  * Declaração de namespaces com sub-namespaces:
  * https://www.php.net/manual/pt_BR/language.namespaces.nested.php
  */
-namespace Biblioteca\Controller;
+namespace App\Controller;
 
 
 /**
  * Definimos aqui que nossa classe precisa incluir uma classe de outro subnamespace
  * do projeto, no caso a classe Aluno do sub-namespace Model
  */
-use Biblioteca\Model{ Emprestimo, Aluno, Livro };
+use App\Model{ Emprestimo, Aluno, Livro };
 use Exception;
 
 /**

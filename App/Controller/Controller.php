@@ -1,7 +1,7 @@
 <?php
-    namespace Biblioteca\Controller;
+    namespace App\Controller;
 
-    use Biblioteca\Model\Model;
+    use App\Model\Model;
 
     abstract class Controller
     {

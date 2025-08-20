@@ -1,7 +1,7 @@
 <?php
-    namespace Biblioteca\DAO;
+    namespace App\DAO;
 
-    use Biblioteca\Model\Emprestimo;
+    use App\Model\Emprestimo;
 
     /**
  * As classes DAO (Data Access Object) são responsáveis por executar os

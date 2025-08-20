@@ -1,5 +1,5 @@
 <?php
-    namespace Biblioteca\Model;
+    namespace App\Model;
 
     abstract class Model
     {
