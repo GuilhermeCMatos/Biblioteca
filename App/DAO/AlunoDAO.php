@@ -1,9 +1,10 @@
 <?php
-    namespace App\DAO;
 
-    use App\Model\Aluno;
+namespace App\DAO;
 
-    final class AlunoDAO extends DAO
+use App\Model\Aluno;
+
+final class AlunoDAO extends DAO
 {
     public function __construct()
     {
