@@ -52,6 +52,7 @@
             } catch(Exception $e) {
     
                 $model->setError($e->getMessage());
+                //$model->setError($e->getStackTrace());
             }
     
             parent::render('Aluno/form_aluno.php', $model);        

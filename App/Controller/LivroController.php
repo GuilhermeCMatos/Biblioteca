@@ -55,10 +55,6 @@ final class LivroController extends Controller
         parent::isProtected(); 
 
         $model = new Livro();
-
-        echo "Estou onde quero";
-
-        var_dump($model->Id_Autores);
         
         try
         {
@@ -86,6 +82,7 @@ final class LivroController extends Controller
         } catch(Exception $e) {
 
             $model->setError($e->getMessage());
+           // $model->setError($e->getStackTrace());
         }
 
         /**

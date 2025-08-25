@@ -1,7 +1,7 @@
 <?php
     namespace App\Model;
 
-    use App\DAO\AlunoDAO;
+    use App\DAO\AutorDAO;
     use Exception;
 
    /**

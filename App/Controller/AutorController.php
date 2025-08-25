@@ -79,6 +79,7 @@ final class AutorController extends Controller
         } catch(Exception $e) {
 
             $model->setError($e->getMessage());
+            $model->setError($e->getTraceAsString());
         }
 
         parent::render('Autor/form_autor.php', $model);        
